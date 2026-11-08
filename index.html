@@ -3,176 +3,131 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gaming Hub</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Apex Gamer Site</title>
 <style>
 *{box-sizing:border-box}
 body{
- margin:0;
+ margin:0;min-height:100vh;color:white;
  font-family:Arial,sans-serif;
- color:white;
  background:linear-gradient(135deg,#10152f,#24205a,#111827);
- min-height:100vh;
 }
-header{
- text-align:center;
- padding:35px 15px 20px;
-}
-header h1{font-size:35px;margin:0}
+header{text-align:center;padding:35px 15px 20px}
+header h1{font-size:34px;margin:0}
 header p{color:#c6c9e8}
-.container{max-width:900px;margin:auto;padding:15px}
+.container{max-width:950px;margin:auto;padding:15px}
 .panel{
- background:#ffffff12;
- border:1px solid #ffffff25;
- border-radius:20px;
- padding:20px;
- margin:15px 0;
- backdrop-filter:blur(12px);
+ background:#ffffff12;border:1px solid #ffffff25;
+ border-radius:20px;padding:20px;margin:15px 0;
+ backdrop-filter:blur(12px)
 }
 .home{
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
- gap:15px;
+ display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+ gap:15px
 }
 .big{
- min-height:150px;
- display:flex;
- flex-direction:column;
- justify-content:center;
- align-items:center;
- cursor:pointer;
- font-size:22px;
- font-weight:bold;
- transition:.2s;
+ min-height:155px;display:flex;flex-direction:column;
+ justify-content:center;align-items:center;
+ cursor:pointer;font-size:23px;font-weight:bold;
+ transition:.2s
 }
 .big:hover,.game:hover{transform:translateY(-4px)}
 button,.btn{
- border:0;
- border-radius:12px;
- padding:12px 17px;
- background:#765cff;
- color:white;
- font-size:15px;
- cursor:pointer;
+ border:0;border-radius:11px;padding:12px 16px;
+ background:#765cff;color:white;font-size:14px;cursor:pointer
 }
 button:hover,.btn:hover{background:#927fff}
 input{
- width:100%;
- padding:13px;
- border:1px solid #ffffff30;
- border-radius:10px;
- background:#111827;
- color:white;
- margin:7px 0;
+ width:100%;padding:13px;margin:7px 0;
+ border:1px solid #ffffff30;border-radius:10px;
+ background:#111827;color:white
 }
 .game-list{
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
- gap:12px;
+ display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+ gap:12px
 }
 .game{
- background:#ffffff12;
- border:1px solid #ffffff25;
- border-radius:15px;
- padding:15px;
- transition:.2s;
+ background:#ffffff12;border:1px solid #ffffff25;
+ border-radius:15px;padding:15px;transition:.2s
 }
 .game h3{margin:0 0 12px;font-size:17px}
-.game a{
- color:white;
- text-decoration:none;
- display:block;
-}
-.game-actions{display:flex;gap:7px;flex-wrap:wrap}
-.small{font-size:12px;color:#c4c6dc}
+.game-actions{display:flex;gap:8px;flex-wrap:wrap}
 .hidden{display:none!important}
-#adminButton{
- position:fixed;
- right:15px;
- bottom:15px;
- border-radius:50px;
- background:#252b48;
- border:1px solid #ffffff40;
-}
+.small{font-size:12px;color:#c4c6dc}
 .danger{background:#d94357}
+#adminButton{
+ position:fixed;right:15px;bottom:15px;
+ border-radius:50px;background:#252b48;
+ border:1px solid #ffffff40
+}
 footer{text-align:center;padding:25px;color:#aeb2d2}
+hr{border:0;border-top:1px solid #ffffff25;margin:22px 0}
 </style>
 </head>
-
 <body>
 
 <header>
- <h1>🎮 Gaming Hub</h1>
- <p>Your little world of games</p>
+ <h1>🕹️ Apex Gamer Site</h1>
+ <p>Your world of games</p>
 </header>
 
 <main class="container">
 
- <section id="homePage">
-  <div class="home">
-   <div class="panel big" onclick="openAI()">
-    🤖<br>Gencel AI
-    <span class="small">Chat with AI</span>
-   </div>
-
-   <div class="panel big" onclick="showGames()">
-    🕹️<br>Games
-    <span class="small">Explore games</span>
-   </div>
+<section id="homePage">
+ <div class="home">
+  <div class="panel big" onclick="openAI()">
+   🤖<br>Gencel AI
+   <span class="small">Chat with AI</span>
   </div>
- </section>
-
- <section id="gamesPage" class="hidden">
-  <button onclick="goHome()">← Home</button>
-
-  <div class="panel">
-   <h2>🕹️ Games Library</h2>
-   <p class="small">Play games or add your own game.</p>
-   <div id="gameList" class="game-list"></div>
+  <div class="panel big" onclick="showGames()">
+   🕹️<br>Games
+   <span class="small">Explore games</span>
   </div>
+ </div>
+</section>
 
-  <div class="panel">
-   <h2>➕ Add Your Game</h2>
-   <p class="small">Add a game using its website URL.</p>
-   <input id="urlGameName" placeholder="Game name">
-   <input id="urlGameLink" type="url" placeholder="https://example.com/game">
-   <button onclick="addUserURL()">Add Game URL</button>
+<section id="gamesPage" class="hidden">
+ <button onclick="goHome()">← Home</button>
+ <div class="panel">
+  <h2>🕹️ Games Library</h2>
+  <div id="gameList" class="game-list"></div>
+ </div>
+</section>
 
-   <hr style="border-color:#ffffff25;margin:22px 0">
+<section id="adminPage" class="hidden">
+ <button onclick="goHome()">← Home</button>
 
-   <h3>📁 Upload HTML Game</h3>
-   <p class="small">Select a single .html game file from your device.</p>
-   <input id="htmlFile" type="file" accept=".html,text/html">
-   <button onclick="uploadGame()">Upload Game</button>
-   <p class="small">Uploaded games are stored only in this browser.</p>
-  </div>
- </section>
+ <div class="panel">
+  <h2>🔐 Admin Panel</h2>
+  <h3>Add Game Using URL</h3>
+  <input id="adminName" placeholder="Game name">
+  <input id="adminURL" type="url" placeholder="https://example.com/game">
+  <button onclick="addAdminURL()">Add Game URL</button>
 
- <section id="adminPage" class="hidden">
-  <button onclick="goHome()">← Home</button>
-  <div class="panel">
-   <h2>🔐 Admin Panel</h2>
-   <p>Add games for the default Games Library.</p>
-   <input id="adminName" placeholder="Game name">
-   <input id="adminURL" type="url" placeholder="Game URL">
-   <button onclick="addAdminGame()">Add Admin Game</button>
-   <h3>Admin Games</h3>
-   <div id="adminList"></div>
-  </div>
- </section>
+  <hr>
+
+  <h3>📁 Upload HTML Game</h3>
+  <p class="small">Upload a single .html game file.</p>
+  <input id="htmlFile" type="file" accept=".html,text/html">
+  <button onclick="uploadGame()">Upload Game</button>
+
+  <hr>
+
+  <h3>Manage Added Games</h3>
+  <div id="adminList"></div>
+ </div>
+</section>
 
 </main>
 
 <button id="adminButton" onclick="adminLogin()">Admin</button>
-
-<footer>Gaming Hub · Made for gamers 🕹️</footer>
+<footer>Apex Gamer Site · 🕹️</footer>
 
 <script>
-const AI_URL = "https://gencel-ai.vercel.app";
-const ADMIN_PASSWORD = "admin@password";
+const AI_URL="https://gencel-ai.vercel.app";
+const ADMIN_PASSWORD="admin@password";
 
-const defaultGames = [
+const defaultGames=[
  {name:"Floppy Car",url:"https://apexgames-web.github.io/Floppy-car/"},
  {name:"Tic Tak",url:"https://apexgames-web.github.io/Tic-Tak/"},
  {name:"Russian Roulette",url:"https://apexgames-web.github.io/Russian-Roulette/"},
@@ -182,199 +137,103 @@ const defaultGames = [
  {name:"Carrom",url:"https://apexgames-web.github.io/Carrom/"}
 ];
 
-let adminGames = JSON.parse(localStorage.getItem("adminGames") || "[]");
-let userGames = JSON.parse(localStorage.getItem("userGames") || "[]");
+let adminGames=JSON.parse(localStorage.getItem("adminGames")||"[]");
+let db=null;
 
-const $ = id => document.getElementById(id);
+const $=id=>document.getElementById(id);
 
-function openAI(){
- window.open(AI_URL,"_blank");
-}
-
+function openAI(){window.open(AI_URL,"_blank")}
 function hidePages(){
- $("homePage").classList.add("hidden");
- $("gamesPage").classList.add("hidden");
- $("adminPage").classList.add("hidden");
+ ["homePage","gamesPage","adminPage"].forEach(id=>$(id).classList.add("hidden"));
 }
-
 function goHome(){
  hidePages();
  $("homePage").classList.remove("hidden");
 }
-
 function showGames(){
  hidePages();
  $("gamesPage").classList.remove("hidden");
  renderGames();
 }
-
 function adminLogin(){
- const password = prompt("Enter Admin Password:");
- if(password !== ADMIN_PASSWORD){
-  if(password !== null) alert("Incorrect password!");
+ const password=prompt("Enter Admin Password:");
+ if(password===null)return;
+ if(password!==ADMIN_PASSWORD){
+  alert("Incorrect password!");
   return;
  }
  hidePages();
  $("adminPage").classList.remove("hidden");
  renderAdmin();
 }
-
-function escapeHTML(value){
- return String(value).replace(/[&<>"']/g, char => ({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
- }[char]));
-}
-
 function validURL(value){
  try{
-  const url = new URL(value);
-  return url.protocol === "https:" || url.protocol === "http:";
- }catch{
-  return false;
- }
+  const u=new URL(value);
+  return u.protocol==="https:"||u.protocol==="http:";
+ }catch{return false}
 }
 
-function renderGames(){
- const list = $("gameList");
- list.innerHTML = "";
+function addAdminURL(){
+ const name=$("adminName").value.trim();
+ const url=$("adminURL").value.trim();
 
- const allGames = [
-  ...defaultGames.map(g=>({...g,type:"default"})),
-  ...adminGames.map((g,i)=>({...g,type:"admin",index:i})),
-  ...userGames.map((g,i)=>({...g,type:"user",index:i}))
- ];
+ if(!name||!url){alert("Enter game name and URL.");return}
+ if(!validURL(url)){alert("Enter a valid HTTP or HTTPS URL.");return}
 
- if(!allGames.length){
-  list.innerHTML="<p>No games added yet.</p>";
-  return;
- }
-
- allGames.forEach(game=>{
-  const card=document.createElement("div");
-  card.className="game";
-
-  const icon=game.type==="user"?"🕹️":"🎮";
-  const name=escapeHTML(game.name);
-
-  let action="";
-
-  if(game.type==="upload"){
-   action="";
-  }
-
-  if(game.file){
-   card.innerHTML=`
-    <h3>🕹️ ${name}</h3>
-    <div class="game-actions">
-     <button onclick="playUploaded(${game.index})">Play</button>
-     <button class="danger" onclick="deleteUserGame(${game.index})">Delete</button>
-    </div>`;
-  }else{
-   card.innerHTML=`
-    <h3>${icon} ${name}</h3>
-    <div class="game-actions">
-     <a class="btn" href="${escapeHTML(game.url)}" target="_blank" rel="noopener noreferrer">Play</a>
-     ${game.type==="user" ? `<button class="danger" onclick="deleteUserGame(${game.index})">Delete</button>` : ""}
-    </div>`;
-  }
-
-  list.appendChild(card);
- });
+ adminGames.push({name,url});
+ localStorage.setItem("adminGames",JSON.stringify(adminGames));
+ $("adminName").value="";
+ $("adminURL").value="";
+ renderAdmin();
+ alert("Game added successfully! 🕹️");
 }
-
-function addUserURL(){
- const name=$("urlGameName").value.trim();
- const url=$("urlGameLink").value.trim();
-
- if(!name || !url){
-  alert("Enter the game name and URL.");
-  return;
- }
- if(!validURL(url)){
-  alert("Please enter a valid HTTP or HTTPS URL.");
-  return;
- }
-
- userGames.push({name,url});
- localStorage.setItem("userGames",JSON.stringify(userGames));
-
- $("urlGameName").value="";
- $("urlGameLink").value="";
- renderGames();
- alert("Game added! 🕹️");
-}
-
-// IndexedDB stores uploaded HTML files.
-let db;
 
 function openDatabase(){
  return new Promise((resolve,reject)=>{
-  const request=indexedDB.open("GamingHubDB",1);
-
+  const request=indexedDB.open("ApexGamerDB",1);
   request.onupgradeneeded=()=>{
    const database=request.result;
    if(!database.objectStoreNames.contains("games")){
     database.createObjectStore("games",{keyPath:"id",autoIncrement:true});
    }
   };
-
-  request.onsuccess=()=>{
-   db=request.result;
-   resolve(db);
-  };
+  request.onsuccess=()=>{db=request.result;resolve(db)};
   request.onerror=()=>reject(request.error);
  });
 }
 
 async function uploadGame(){
  const file=$("htmlFile").files[0];
-
- if(!file){
-  alert("Choose an HTML file first.");
-  return;
- }
-
+ if(!file){alert("Choose an HTML file first.");return}
  if(!file.name.toLowerCase().endsWith(".html")){
-  alert("Only .html files are accepted.");
-  return;
+  alert("Only .html files are accepted.");return;
  }
-
  if(file.size>5*1024*1024){
-  alert("Maximum file size is 5 MB.");
-  return;
+  alert("Maximum file size is 5 MB.");return;
  }
 
  try{
   await openDatabase();
-
-  const transaction=db.transaction("games","readwrite");
-  transaction.objectStore("games").add({
+  const tx=db.transaction("games","readwrite");
+  tx.objectStore("games").add({
    name:file.name.replace(/\.html$/i,""),
-   file:file,
-   created:Date.now()
+   file:file
   });
-
-  transaction.oncomplete=()=>{
+  tx.oncomplete=()=>{
    $("htmlFile").value="";
-   renderGames();
-   alert("HTML game uploaded successfully! 🕹️");
+   renderAdmin();
+   alert("HTML game uploaded! 🕹️");
   };
-
-  transaction.onerror=()=>alert("Upload failed.");
- }catch(error){
-  alert("Your browser could not store the game.");
- }
+  tx.onerror=()=>alert("Upload failed.");
+ }catch(e){alert("Could not save the game in this browser.")}
 }
 
 async function getUploadedGames(){
  await openDatabase();
-
  return new Promise((resolve,reject)=>{
-  const request=db.transaction("games","readonly")
-   .objectStore("games").getAll();
-
-  request.onsuccess=()=>resolve(request.result);
-  request.onerror=()=>reject(request.error);
+  const req=db.transaction("games","readonly").objectStore("games").getAll();
+  req.onsuccess=()=>resolve(req.result);
+  req.onerror=()=>reject(req.error);
  });
 }
 
@@ -382,151 +241,83 @@ async function renderGames(){
  const list=$("gameList");
  list.innerHTML="";
 
- const allGames=[
-  ...defaultGames.map(g=>({...g,type:"default"})),
-  ...adminGames.map((g,i)=>({...g,type:"admin",index:i})),
-  ...userGames.map((g,i)=>({...g,type:"user",index:i}))
- ];
-
- allGames.forEach(game=>{
+ function addCard(name,icon,playAction){
   const card=document.createElement("div");
   card.className="game";
-  const icon=game.type==="user"?"🕹️":"🎮";
-
-  const heading=document.createElement("h3");
-  heading.textContent=icon+" "+game.name;
-  card.appendChild(heading);
-
+  const title=document.createElement("h3");
+  title.textContent=icon+" "+name;
   const actions=document.createElement("div");
   actions.className="game-actions";
-
-  const play=document.createElement("a");
-  play.className="btn";
+  const play=document.createElement("button");
   play.textContent="Play";
-  play.href=game.url;
-  play.target="_blank";
-  play.rel="noopener noreferrer";
+  play.onclick=playAction;
   actions.appendChild(play);
-
-  if(game.type==="user"){
-   const del=document.createElement("button");
-   del.className="danger";
-   del.textContent="Delete";
-   del.onclick=()=>deleteUserGame(game.index);
-   actions.appendChild(del);
-  }
-
-  card.appendChild(actions);
+  card.append(title,actions);
   list.appendChild(card);
+ }
+
+ defaultGames.forEach(game=>{
+  addCard(game.name,"🎮",()=>window.open(game.url,"_blank","noopener"));
+ });
+
+ adminGames.forEach(game=>{
+  addCard(game.name,"🕹️",()=>window.open(game.url,"_blank","noopener"));
  });
 
  try{
   const uploaded=await getUploadedGames();
-
   uploaded.forEach(game=>{
-   const card=document.createElement("div");
-   card.className="game";
-
-   const heading=document.createElement("h3");
-   heading.textContent="🕹️ "+game.name;
-
-   const actions=document.createElement("div");
-   actions.className="game-actions";
-
-   const play=document.createElement("button");
-   play.textContent="Play";
-   play.onclick=()=>playUploaded(game.id);
-
-   const del=document.createElement("button");
-   del.className="danger";
-   del.textContent="Delete";
-   del.onclick=()=>deleteUploaded(game.id);
-
-   actions.append(play,del);
-   card.append(heading,actions);
-   list.appendChild(card);
+   addCard(game.name,"🕹️",()=>playUploaded(game.id));
   });
- }catch(error){
-  console.error(error);
+ }catch(e){
+  console.error(e);
  }
-}
-
-function deleteUserGame(index){
- if(!confirm("Delete this game?"))return;
- userGames.splice(index,1);
- localStorage.setItem("userGames",JSON.stringify(userGames));
- renderGames();
 }
 
 async function playUploaded(id){
  try{
   await openDatabase();
-
   const game=await new Promise((resolve,reject)=>{
-   const request=db.transaction("games","readonly")
-    .objectStore("games").get(id);
-   request.onsuccess=()=>resolve(request.result);
-   request.onerror=()=>reject(request.error);
+   const req=db.transaction("games","readonly").objectStore("games").get(id);
+   req.onsuccess=()=>resolve(req.result);
+   req.onerror=()=>reject(req.error);
   });
-
   if(!game)return;
 
   const blobURL=URL.createObjectURL(game.file);
   const win=window.open("about:blank","_blank");
-
   if(!win){
    URL.revokeObjectURL(blobURL);
    alert("Allow pop-ups to play uploaded games.");
    return;
   }
 
-  win.document.title=game.name;
-
   const frame=win.document.createElement("iframe");
   frame.src=blobURL;
   frame.sandbox="allow-scripts allow-forms";
-  frame.style="width:100%;height:100%;border:0;position:fixed;inset:0";
-  win.document.body.style="margin:0";
+  frame.style="position:fixed;inset:0;width:100%;height:100%;border:0";
+  win.document.body.style.margin="0";
   win.document.body.appendChild(frame);
-
   win.addEventListener("pagehide",()=>URL.revokeObjectURL(blobURL),{once:true});
- }catch(error){
-  alert("Could not open this game.");
- }
+ }catch(e){alert("Could not open this game.")}
 }
 
 async function deleteUploaded(id){
  if(!confirm("Delete this uploaded game?"))return;
-
  await openDatabase();
- const transaction=db.transaction("games","readwrite");
- transaction.objectStore("games").delete(id);
- transaction.oncomplete=renderGames;
+ const tx=db.transaction("games","readwrite");
+ tx.objectStore("games").delete(id);
+ tx.oncomplete=renderAdmin;
 }
 
-function addAdminGame(){
- const name=$("adminName").value.trim();
- const url=$("adminURL").value.trim();
-
- if(!name || !url){
-  alert("Enter game name and URL.");
-  return;
- }
- if(!validURL(url)){
-  alert("Enter a valid HTTP or HTTPS URL.");
-  return;
- }
-
- adminGames.push({name,url});
+function deleteURLGame(index){
+ if(!confirm("Delete this game?"))return;
+ adminGames.splice(index,1);
  localStorage.setItem("adminGames",JSON.stringify(adminGames));
-
- $("adminName").value="";
- $("adminURL").value="";
  renderAdmin();
- alert("Admin game added!");
 }
 
-function renderAdmin(){
+async function renderAdmin(){
  const list=$("adminList");
  list.innerHTML="";
 
@@ -534,26 +325,35 @@ function renderAdmin(){
   const item=document.createElement("div");
   item.className="game";
   item.style.margin="8px 0";
-
-  const name=document.createElement("strong");
-  name.textContent=game.name;
-
+  const title=document.createElement("strong");
+  title.textContent="🕹️ "+game.name;
   const del=document.createElement("button");
   del.className="danger";
   del.textContent="Delete";
-  del.onclick=()=>{
-   adminGames.splice(index,1);
-   localStorage.setItem("adminGames",JSON.stringify(adminGames));
-   renderAdmin();
-  };
-
-  item.append(name,del);
+  del.onclick=()=>deleteURLGame(index);
+  item.append(title,del);
   list.appendChild(item);
  });
+
+ try{
+  const uploaded=await getUploadedGames();
+  uploaded.forEach(game=>{
+   const item=document.createElement("div");
+   item.className="game";
+   item.style.margin="8px 0";
+   const title=document.createElement("strong");
+   title.textContent="🕹️ "+game.name+" (HTML)";
+   const del=document.createElement("button");
+   del.className="danger";
+   del.textContent="Delete";
+   del.onclick=()=>deleteUploaded(game.id);
+   item.append(title,del);
+   list.appendChild(item);
+  });
+ }catch(e){console.error(e)}
 }
 
 goHome();
 </script>
-
 </body>
 </html>
