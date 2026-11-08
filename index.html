@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaming Hub</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: white;
+    background: linear-gradient(135deg, #101426, #202b48, #111827);
+}
+
+header {
+    padding: 22px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.home {
+    min-height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    padding: 25px;
+}
+
+.main-card {
+    width: 260px;
+    height: 180px;
+    border: 1px solid #ffffff30;
+    border-radius: 20px;
+    background: #ffffff12;
+    backdrop-filter: blur(15px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 27px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.main-card:hover {
+    transform: translateY(-8px);
+    background: #ffffff25;
+    box-shadow: 0 10px 35px #0005;
+}
+
+.admin-button {
+    position: fixed;
+    bottom: 18px;
+    right: 18px;
+    background: #ffffff18;
+    border: 1px solid #ffffff40;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.page {
+    display: none;
+    padding: 20px;
+    max-width: 950px;
+    margin: auto;
+}
+
+.page h2 {
+    text-align: center;
+    margin: 15px 0 25px;
+}
+
+.back {
+    padding: 9px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #ffffff20;
+    color: white;
+    cursor: pointer;
+}
+
+.games-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.game {
+    background: #ffffff12;
+    border: 1px solid #ffffff25;
+    padding: 20px;
+    border-radius: 14px;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.game:hover {
+    background: #ffffff25;
+    transform: translateY(-4px);
+}
+
+.game a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+}
+
+#adminPage input {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ffffff30;
+    border-radius: 8px;
+    background: #ffffff12;
+    color: white;
+}
+
+#adminPage input::placeholder {
+    color: #ccc;
+}
+
+.action {
+    padding: 11px 17px;
+    border: none;
+    border-radius: 8px;
+    background: #536dfe;
+    color: white;
+    cursor: pointer;
+    margin: 5px 0;
+}
+
+.delete {
+    background: #d64545;
+    margin-top: 10px;
+}
+
+.admin-game {
+    padding: 13px;
+    background: #ffffff12;
+    border-radius: 10px;
+    margin: 10px 0;
+    overflow-wrap: anywhere;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #aaa;
+    font-size: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>🎮 Gaming Hub</header>
+
+<!-- HOME PAGE -->
+<section id="homePage" class="home">
+
+    <div class="main-card" onclick="openAI()">
+        🤖 Gencel AI
+    </div>
+
+    <div class="main-card" onclick="showPage('gamesPage')">
+        🎮 Games
+    </div>
+
+</section>
+
+<!-- GAMES PAGE -->
+<section id="gamesPage" class="page">
+
+    <button class="back" onclick="showPage('homePage')">
+        ← Home
+    </button>
+
+    <h2>🎮 Games Library</h2>
+
+    <div id="gamesList" class="games-list"></div>
+
+</section>
+
+<!-- ADMIN PAGE -->
+<section id="adminPage" class="page">
+
+    <button class="back" onclick="showPage('homePage')">
+        ← Home
+    </button>
+
+    <h2>⚙️ Admin Panel</h2>
+
+    <h3>Add a New Game</h3>
+
+    <input id="gameName" type="text"
+           placeholder="Game name">
+
+    <input id="gameURL" type="url"
+           placeholder="Game URL (https://...)">
+
+    <button class="action" onclick="addGame()">
+        + Add Game
+    </button>
+
+    <h3 style="margin-top:25px;">Manage Games</h3>
+
+    <div id="adminGames"></div>
+
+</section>
+
+<button class="admin-button" onclick="adminLogin()">
+    ⚙ Admin
+</button>
+
+<footer>
+    Gaming Hub • Made for gamers
+</footer>
+
+<script>
+
+// SETTINGS
+const AI_URL = "https://gencel-ai.vercel.app";
+const ADMIN_PASSWORD = "admin@password";
+
+const DEFAULT_GAMES = [
+    {
+        name: "Floppy Car",
+        url: "https://apexgames-web.github.io/Floppy-car/"
+    },
+    {
+        name: "Tic Tak",
+        url: "https://apexgames-web.github.io/Tic-Tak/"
+    },
+    {
+        name: "Russian Roulette",
+        url: "https://apexgames-web.github.io/Russian-Roulette/"
+    },
+    {
+        name: "Tab Tab",
+        url: "https://apexgames-web.github.io/Tab-Tab/"
+    },
+    {
+        name: "Lucky Fifty",
+        url: "https://apexgames-web.github.io/Lucky-Fifty/"
+    },
+    {
+        name: "Rock Paper Scissors",
+        url: "https://apexgames-web.github.io/Rock-Papaer-Scissors/"
+    },
+    {
+        name: "Carrom",
+        url: "https://apexgames-web.github.io/Carrom/"
+    }
+];
+
+// LOAD SAVED GAMES
+let games;
+
+try {
+    const saved = localStorage.getItem("gamingHubGames");
+    games = saved ? JSON.parse(saved) : DEFAULT_GAMES;
+    if (!Array.isArray(games)) games = DEFAULT_GAMES;
+} catch {
+    games = DEFAULT_GAMES;
+}
+
+function saveGames() {
+    localStorage.setItem("gamingHubGames", JSON.stringify(games));
+}
+
+function openAI() {
+    window.open(AI_URL, "_blank", "noopener");
+}
+
+function showPage(pageID) {
+    document.querySelectorAll(".home, .page").forEach(page => {
+        page.style.display = "none";
+    });
+
+    document.getElementById(pageID).style.display =
+        pageID === "homePage" ? "flex" : "block";
+
+    if (pageID === "gamesPage") renderGames();
+    if (pageID === "adminPage") renderAdmin();
+}
+
+function renderGames() {
+    const list = document.getElementById("gamesList");
+    list.innerHTML = "";
+
+    games.forEach(game => {
+        const card = document.createElement("div");
+        card.className = "game";
+
+        const link = document.createElement("a");
+        link.textContent = "🎮 " + game.name;
+        link.href = game.url;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+
+        card.appendChild(link);
+        list.appendChild(card);
+    });
+}
+
+function adminLogin() {
+    const password = prompt("Enter Admin Password:");
+
+    if (password === null) return;
+
+    if (password === ADMIN_PASSWORD) {
+        showPage("adminPage");
+    } else {
+        alert("Incorrect password!");
+    }
+}
+
+function addGame() {
+    const name = document.getElementById("gameName").value.trim();
+    const url = document.getElementById("gameURL").value.trim();
+
+    if (!name || !url) {
+        alert("Please enter both game name and URL.");
+        return;
+    }
+
+    try {
+        const parsedURL = new URL(url);
+
+        if (parsedURL.protocol !== "https:") {
+            alert("Only HTTPS game links are allowed.");
+            return;
+        }
+    } catch {
+        alert("Please enter a valid URL.");
+        return;
+    }
+
+    games.push({ name, url });
+    saveGames();
+
+    document.getElementById("gameName").value = "";
+    document.getElementById("gameURL").value = "";
+
+    renderAdmin();
+    alert("Game added successfully!");
+}
+
+function deleteGame(index) {
+    if (confirm("Delete this game?")) {
+        games.splice(index, 1);
+        saveGames();
+        renderAdmin();
+    }
+}
+
+function renderAdmin() {
+    const container = document.getElementById("adminGames");
+    container.innerHTML = "";
+
+    games.forEach((game, index) => {
+        const item = document.createElement("div");
+        item.className = "admin-game";
+
+        const title = document.createElement("strong");
+        title.textContent = game.name;
+
+        const url = document.createElement("p");
+        url.textContent = game.url;
+        url.style.fontSize = "12px";
+        url.style.marginTop = "7px";
+
+        const remove = document.createElement("button");
+        remove.className = "action delete";
+        remove.textContent = "Delete";
+        remove.onclick = () => deleteGame(index);
+
+        item.append(title, url, remove);
+        container.appendChild(item);
+    });
+}
+
+// INITIAL PAGE
+showPage("homePage");
+
+</script>
+
+</body>
+</html>
