@@ -7,399 +7,552 @@
 <title>Gaming Hub</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ color:white;
+ background:linear-gradient(135deg,#10152f,#24205a,#111827);
+ min-height:100vh;
 }
-
-body {
-    min-height: 100vh;
-    font-family: Arial, sans-serif;
-    color: white;
-    background: linear-gradient(135deg, #101426, #202b48, #111827);
+header{
+ text-align:center;
+ padding:35px 15px 20px;
 }
-
-header {
-    padding: 22px;
-    text-align: center;
-    font-size: 25px;
-    font-weight: bold;
-    letter-spacing: 1px;
+header h1{font-size:35px;margin:0}
+header p{color:#c6c9e8}
+.container{max-width:900px;margin:auto;padding:15px}
+.panel{
+ background:#ffffff12;
+ border:1px solid #ffffff25;
+ border-radius:20px;
+ padding:20px;
+ margin:15px 0;
+ backdrop-filter:blur(12px);
 }
-
-.home {
-    min-height: 75vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 25px;
-    padding: 25px;
+.home{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+ gap:15px;
 }
-
-.main-card {
-    width: 260px;
-    height: 180px;
-    border: 1px solid #ffffff30;
-    border-radius: 20px;
-    background: #ffffff12;
-    backdrop-filter: blur(15px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 27px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+.big{
+ min-height:150px;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ cursor:pointer;
+ font-size:22px;
+ font-weight:bold;
+ transition:.2s;
 }
-
-.main-card:hover {
-    transform: translateY(-8px);
-    background: #ffffff25;
-    box-shadow: 0 10px 35px #0005;
+.big:hover,.game:hover{transform:translateY(-4px)}
+button,.btn{
+ border:0;
+ border-radius:12px;
+ padding:12px 17px;
+ background:#765cff;
+ color:white;
+ font-size:15px;
+ cursor:pointer;
 }
-
-.admin-button {
-    position: fixed;
-    bottom: 18px;
-    right: 18px;
-    background: #ffffff18;
-    border: 1px solid #ffffff40;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 12px;
+button:hover,.btn:hover{background:#927fff}
+input{
+ width:100%;
+ padding:13px;
+ border:1px solid #ffffff30;
+ border-radius:10px;
+ background:#111827;
+ color:white;
+ margin:7px 0;
 }
-
-.page {
-    display: none;
-    padding: 20px;
-    max-width: 950px;
-    margin: auto;
+.game-list{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+ gap:12px;
 }
-
-.page h2 {
-    text-align: center;
-    margin: 15px 0 25px;
+.game{
+ background:#ffffff12;
+ border:1px solid #ffffff25;
+ border-radius:15px;
+ padding:15px;
+ transition:.2s;
 }
-
-.back {
-    padding: 9px 16px;
-    border: none;
-    border-radius: 8px;
-    background: #ffffff20;
-    color: white;
-    cursor: pointer;
+.game h3{margin:0 0 12px;font-size:17px}
+.game a{
+ color:white;
+ text-decoration:none;
+ display:block;
 }
-
-.games-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
+.game-actions{display:flex;gap:7px;flex-wrap:wrap}
+.small{font-size:12px;color:#c4c6dc}
+.hidden{display:none!important}
+#adminButton{
+ position:fixed;
+ right:15px;
+ bottom:15px;
+ border-radius:50px;
+ background:#252b48;
+ border:1px solid #ffffff40;
 }
-
-.game {
-    background: #ffffff12;
-    border: 1px solid #ffffff25;
-    padding: 20px;
-    border-radius: 14px;
-    text-align: center;
-    transition: 0.2s;
-}
-
-.game:hover {
-    background: #ffffff25;
-    transform: translateY(-4px);
-}
-
-.game a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    display: block;
-}
-
-#adminPage input {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ffffff30;
-    border-radius: 8px;
-    background: #ffffff12;
-    color: white;
-}
-
-#adminPage input::placeholder {
-    color: #ccc;
-}
-
-.action {
-    padding: 11px 17px;
-    border: none;
-    border-radius: 8px;
-    background: #536dfe;
-    color: white;
-    cursor: pointer;
-    margin: 5px 0;
-}
-
-.delete {
-    background: #d64545;
-    margin-top: 10px;
-}
-
-.admin-game {
-    padding: 13px;
-    background: #ffffff12;
-    border-radius: 10px;
-    margin: 10px 0;
-    overflow-wrap: anywhere;
-}
-
-footer {
-    text-align: center;
-    padding: 20px;
-    color: #aaa;
-    font-size: 12px;
-}
+.danger{background:#d94357}
+footer{text-align:center;padding:25px;color:#aeb2d2}
 </style>
 </head>
 
 <body>
 
-<header>🎮 Gaming Hub</header>
+<header>
+ <h1>🎮 Gaming Hub</h1>
+ <p>Your little world of games</p>
+</header>
 
-<!-- HOME PAGE -->
-<section id="homePage" class="home">
+<main class="container">
 
-    <div class="main-card" onclick="openAI()">
-        🤖 Gencel AI
-    </div>
+ <section id="homePage">
+  <div class="home">
+   <div class="panel big" onclick="openAI()">
+    🤖<br>Gencel AI
+    <span class="small">Chat with AI</span>
+   </div>
 
-    <div class="main-card" onclick="showPage('gamesPage')">
-        🎮 Games
-    </div>
+   <div class="panel big" onclick="showGames()">
+    🕹️<br>Games
+    <span class="small">Explore games</span>
+   </div>
+  </div>
+ </section>
 
-</section>
+ <section id="gamesPage" class="hidden">
+  <button onclick="goHome()">← Home</button>
 
-<!-- GAMES PAGE -->
-<section id="gamesPage" class="page">
+  <div class="panel">
+   <h2>🕹️ Games Library</h2>
+   <p class="small">Play games or add your own game.</p>
+   <div id="gameList" class="game-list"></div>
+  </div>
 
-    <button class="back" onclick="showPage('homePage')">
-        ← Home
-    </button>
+  <div class="panel">
+   <h2>➕ Add Your Game</h2>
+   <p class="small">Add a game using its website URL.</p>
+   <input id="urlGameName" placeholder="Game name">
+   <input id="urlGameLink" type="url" placeholder="https://example.com/game">
+   <button onclick="addUserURL()">Add Game URL</button>
 
-    <h2>🎮 Games Library</h2>
+   <hr style="border-color:#ffffff25;margin:22px 0">
 
-    <div id="gamesList" class="games-list"></div>
+   <h3>📁 Upload HTML Game</h3>
+   <p class="small">Select a single .html game file from your device.</p>
+   <input id="htmlFile" type="file" accept=".html,text/html">
+   <button onclick="uploadGame()">Upload Game</button>
+   <p class="small">Uploaded games are stored only in this browser.</p>
+  </div>
+ </section>
 
-</section>
+ <section id="adminPage" class="hidden">
+  <button onclick="goHome()">← Home</button>
+  <div class="panel">
+   <h2>🔐 Admin Panel</h2>
+   <p>Add games for the default Games Library.</p>
+   <input id="adminName" placeholder="Game name">
+   <input id="adminURL" type="url" placeholder="Game URL">
+   <button onclick="addAdminGame()">Add Admin Game</button>
+   <h3>Admin Games</h3>
+   <div id="adminList"></div>
+  </div>
+ </section>
 
-<!-- ADMIN PAGE -->
-<section id="adminPage" class="page">
+</main>
 
-    <button class="back" onclick="showPage('homePage')">
-        ← Home
-    </button>
+<button id="adminButton" onclick="adminLogin()">Admin</button>
 
-    <h2>⚙️ Admin Panel</h2>
-
-    <h3>Add a New Game</h3>
-
-    <input id="gameName" type="text"
-           placeholder="Game name">
-
-    <input id="gameURL" type="url"
-           placeholder="Game URL (https://...)">
-
-    <button class="action" onclick="addGame()">
-        + Add Game
-    </button>
-
-    <h3 style="margin-top:25px;">Manage Games</h3>
-
-    <div id="adminGames"></div>
-
-</section>
-
-<button class="admin-button" onclick="adminLogin()">
-    ⚙ Admin
-</button>
-
-<footer>
-    Gaming Hub • Made for gamers
-</footer>
+<footer>Gaming Hub · Made for gamers 🕹️</footer>
 
 <script>
-
-// SETTINGS
 const AI_URL = "https://gencel-ai.vercel.app";
 const ADMIN_PASSWORD = "admin@password";
 
-const DEFAULT_GAMES = [
-    {
-        name: "Floppy Car",
-        url: "https://apexgames-web.github.io/Floppy-car/"
-    },
-    {
-        name: "Tic Tak",
-        url: "https://apexgames-web.github.io/Tic-Tak/"
-    },
-    {
-        name: "Russian Roulette",
-        url: "https://apexgames-web.github.io/Russian-Roulette/"
-    },
-    {
-        name: "Tab Tab",
-        url: "https://apexgames-web.github.io/Tab-Tab/"
-    },
-    {
-        name: "Lucky Fifty",
-        url: "https://apexgames-web.github.io/Lucky-Fifty/"
-    },
-    {
-        name: "Rock Paper Scissors",
-        url: "https://apexgames-web.github.io/Rock-Papaer-Scissors/"
-    },
-    {
-        name: "Carrom",
-        url: "https://apexgames-web.github.io/Carrom/"
-    }
+const defaultGames = [
+ {name:"Floppy Car",url:"https://apexgames-web.github.io/Floppy-car/"},
+ {name:"Tic Tak",url:"https://apexgames-web.github.io/Tic-Tak/"},
+ {name:"Russian Roulette",url:"https://apexgames-web.github.io/Russian-Roulette/"},
+ {name:"Tab Tab",url:"https://apexgames-web.github.io/Tab-Tab/"},
+ {name:"Lucky Fifty",url:"https://apexgames-web.github.io/Lucky-Fifty/"},
+ {name:"Rock Paper Scissors",url:"https://apexgames-web.github.io/Rock-Papaer-Scissors/"},
+ {name:"Carrom",url:"https://apexgames-web.github.io/Carrom/"}
 ];
 
-// LOAD SAVED GAMES
-let games;
+let adminGames = JSON.parse(localStorage.getItem("adminGames") || "[]");
+let userGames = JSON.parse(localStorage.getItem("userGames") || "[]");
 
-try {
-    const saved = localStorage.getItem("gamingHubGames");
-    games = saved ? JSON.parse(saved) : DEFAULT_GAMES;
-    if (!Array.isArray(games)) games = DEFAULT_GAMES;
-} catch {
-    games = DEFAULT_GAMES;
+const $ = id => document.getElementById(id);
+
+function openAI(){
+ window.open(AI_URL,"_blank");
 }
 
-function saveGames() {
-    localStorage.setItem("gamingHubGames", JSON.stringify(games));
+function hidePages(){
+ $("homePage").classList.add("hidden");
+ $("gamesPage").classList.add("hidden");
+ $("adminPage").classList.add("hidden");
 }
 
-function openAI() {
-    window.open(AI_URL, "_blank", "noopener");
+function goHome(){
+ hidePages();
+ $("homePage").classList.remove("hidden");
 }
 
-function showPage(pageID) {
-    document.querySelectorAll(".home, .page").forEach(page => {
-        page.style.display = "none";
-    });
-
-    document.getElementById(pageID).style.display =
-        pageID === "homePage" ? "flex" : "block";
-
-    if (pageID === "gamesPage") renderGames();
-    if (pageID === "adminPage") renderAdmin();
+function showGames(){
+ hidePages();
+ $("gamesPage").classList.remove("hidden");
+ renderGames();
 }
 
-function renderGames() {
-    const list = document.getElementById("gamesList");
-    list.innerHTML = "";
-
-    games.forEach(game => {
-        const card = document.createElement("div");
-        card.className = "game";
-
-        const link = document.createElement("a");
-        link.textContent = "🎮 " + game.name;
-        link.href = game.url;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-
-        card.appendChild(link);
-        list.appendChild(card);
-    });
+function adminLogin(){
+ const password = prompt("Enter Admin Password:");
+ if(password !== ADMIN_PASSWORD){
+  if(password !== null) alert("Incorrect password!");
+  return;
+ }
+ hidePages();
+ $("adminPage").classList.remove("hidden");
+ renderAdmin();
 }
 
-function adminLogin() {
-    const password = prompt("Enter Admin Password:");
-
-    if (password === null) return;
-
-    if (password === ADMIN_PASSWORD) {
-        showPage("adminPage");
-    } else {
-        alert("Incorrect password!");
-    }
+function escapeHTML(value){
+ return String(value).replace(/[&<>"']/g, char => ({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[char]));
 }
 
-function addGame() {
-    const name = document.getElementById("gameName").value.trim();
-    const url = document.getElementById("gameURL").value.trim();
-
-    if (!name || !url) {
-        alert("Please enter both game name and URL.");
-        return;
-    }
-
-    try {
-        const parsedURL = new URL(url);
-
-        if (parsedURL.protocol !== "https:") {
-            alert("Only HTTPS game links are allowed.");
-            return;
-        }
-    } catch {
-        alert("Please enter a valid URL.");
-        return;
-    }
-
-    games.push({ name, url });
-    saveGames();
-
-    document.getElementById("gameName").value = "";
-    document.getElementById("gameURL").value = "";
-
-    renderAdmin();
-    alert("Game added successfully!");
+function validURL(value){
+ try{
+  const url = new URL(value);
+  return url.protocol === "https:" || url.protocol === "http:";
+ }catch{
+  return false;
+ }
 }
 
-function deleteGame(index) {
-    if (confirm("Delete this game?")) {
-        games.splice(index, 1);
-        saveGames();
-        renderAdmin();
-    }
+function renderGames(){
+ const list = $("gameList");
+ list.innerHTML = "";
+
+ const allGames = [
+  ...defaultGames.map(g=>({...g,type:"default"})),
+  ...adminGames.map((g,i)=>({...g,type:"admin",index:i})),
+  ...userGames.map((g,i)=>({...g,type:"user",index:i}))
+ ];
+
+ if(!allGames.length){
+  list.innerHTML="<p>No games added yet.</p>";
+  return;
+ }
+
+ allGames.forEach(game=>{
+  const card=document.createElement("div");
+  card.className="game";
+
+  const icon=game.type==="user"?"🕹️":"🎮";
+  const name=escapeHTML(game.name);
+
+  let action="";
+
+  if(game.type==="upload"){
+   action="";
+  }
+
+  if(game.file){
+   card.innerHTML=`
+    <h3>🕹️ ${name}</h3>
+    <div class="game-actions">
+     <button onclick="playUploaded(${game.index})">Play</button>
+     <button class="danger" onclick="deleteUserGame(${game.index})">Delete</button>
+    </div>`;
+  }else{
+   card.innerHTML=`
+    <h3>${icon} ${name}</h3>
+    <div class="game-actions">
+     <a class="btn" href="${escapeHTML(game.url)}" target="_blank" rel="noopener noreferrer">Play</a>
+     ${game.type==="user" ? `<button class="danger" onclick="deleteUserGame(${game.index})">Delete</button>` : ""}
+    </div>`;
+  }
+
+  list.appendChild(card);
+ });
 }
 
-function renderAdmin() {
-    const container = document.getElementById("adminGames");
-    container.innerHTML = "";
+function addUserURL(){
+ const name=$("urlGameName").value.trim();
+ const url=$("urlGameLink").value.trim();
 
-    games.forEach((game, index) => {
-        const item = document.createElement("div");
-        item.className = "admin-game";
+ if(!name || !url){
+  alert("Enter the game name and URL.");
+  return;
+ }
+ if(!validURL(url)){
+  alert("Please enter a valid HTTP or HTTPS URL.");
+  return;
+ }
 
-        const title = document.createElement("strong");
-        title.textContent = game.name;
+ userGames.push({name,url});
+ localStorage.setItem("userGames",JSON.stringify(userGames));
 
-        const url = document.createElement("p");
-        url.textContent = game.url;
-        url.style.fontSize = "12px";
-        url.style.marginTop = "7px";
-
-        const remove = document.createElement("button");
-        remove.className = "action delete";
-        remove.textContent = "Delete";
-        remove.onclick = () => deleteGame(index);
-
-        item.append(title, url, remove);
-        container.appendChild(item);
-    });
+ $("urlGameName").value="";
+ $("urlGameLink").value="";
+ renderGames();
+ alert("Game added! 🕹️");
 }
 
-// INITIAL PAGE
-showPage("homePage");
+// IndexedDB stores uploaded HTML files.
+let db;
 
+function openDatabase(){
+ return new Promise((resolve,reject)=>{
+  const request=indexedDB.open("GamingHubDB",1);
+
+  request.onupgradeneeded=()=>{
+   const database=request.result;
+   if(!database.objectStoreNames.contains("games")){
+    database.createObjectStore("games",{keyPath:"id",autoIncrement:true});
+   }
+  };
+
+  request.onsuccess=()=>{
+   db=request.result;
+   resolve(db);
+  };
+  request.onerror=()=>reject(request.error);
+ });
+}
+
+async function uploadGame(){
+ const file=$("htmlFile").files[0];
+
+ if(!file){
+  alert("Choose an HTML file first.");
+  return;
+ }
+
+ if(!file.name.toLowerCase().endsWith(".html")){
+  alert("Only .html files are accepted.");
+  return;
+ }
+
+ if(file.size>5*1024*1024){
+  alert("Maximum file size is 5 MB.");
+  return;
+ }
+
+ try{
+  await openDatabase();
+
+  const transaction=db.transaction("games","readwrite");
+  transaction.objectStore("games").add({
+   name:file.name.replace(/\.html$/i,""),
+   file:file,
+   created:Date.now()
+  });
+
+  transaction.oncomplete=()=>{
+   $("htmlFile").value="";
+   renderGames();
+   alert("HTML game uploaded successfully! 🕹️");
+  };
+
+  transaction.onerror=()=>alert("Upload failed.");
+ }catch(error){
+  alert("Your browser could not store the game.");
+ }
+}
+
+async function getUploadedGames(){
+ await openDatabase();
+
+ return new Promise((resolve,reject)=>{
+  const request=db.transaction("games","readonly")
+   .objectStore("games").getAll();
+
+  request.onsuccess=()=>resolve(request.result);
+  request.onerror=()=>reject(request.error);
+ });
+}
+
+async function renderGames(){
+ const list=$("gameList");
+ list.innerHTML="";
+
+ const allGames=[
+  ...defaultGames.map(g=>({...g,type:"default"})),
+  ...adminGames.map((g,i)=>({...g,type:"admin",index:i})),
+  ...userGames.map((g,i)=>({...g,type:"user",index:i}))
+ ];
+
+ allGames.forEach(game=>{
+  const card=document.createElement("div");
+  card.className="game";
+  const icon=game.type==="user"?"🕹️":"🎮";
+
+  const heading=document.createElement("h3");
+  heading.textContent=icon+" "+game.name;
+  card.appendChild(heading);
+
+  const actions=document.createElement("div");
+  actions.className="game-actions";
+
+  const play=document.createElement("a");
+  play.className="btn";
+  play.textContent="Play";
+  play.href=game.url;
+  play.target="_blank";
+  play.rel="noopener noreferrer";
+  actions.appendChild(play);
+
+  if(game.type==="user"){
+   const del=document.createElement("button");
+   del.className="danger";
+   del.textContent="Delete";
+   del.onclick=()=>deleteUserGame(game.index);
+   actions.appendChild(del);
+  }
+
+  card.appendChild(actions);
+  list.appendChild(card);
+ });
+
+ try{
+  const uploaded=await getUploadedGames();
+
+  uploaded.forEach(game=>{
+   const card=document.createElement("div");
+   card.className="game";
+
+   const heading=document.createElement("h3");
+   heading.textContent="🕹️ "+game.name;
+
+   const actions=document.createElement("div");
+   actions.className="game-actions";
+
+   const play=document.createElement("button");
+   play.textContent="Play";
+   play.onclick=()=>playUploaded(game.id);
+
+   const del=document.createElement("button");
+   del.className="danger";
+   del.textContent="Delete";
+   del.onclick=()=>deleteUploaded(game.id);
+
+   actions.append(play,del);
+   card.append(heading,actions);
+   list.appendChild(card);
+  });
+ }catch(error){
+  console.error(error);
+ }
+}
+
+function deleteUserGame(index){
+ if(!confirm("Delete this game?"))return;
+ userGames.splice(index,1);
+ localStorage.setItem("userGames",JSON.stringify(userGames));
+ renderGames();
+}
+
+async function playUploaded(id){
+ try{
+  await openDatabase();
+
+  const game=await new Promise((resolve,reject)=>{
+   const request=db.transaction("games","readonly")
+    .objectStore("games").get(id);
+   request.onsuccess=()=>resolve(request.result);
+   request.onerror=()=>reject(request.error);
+  });
+
+  if(!game)return;
+
+  const blobURL=URL.createObjectURL(game.file);
+  const win=window.open("about:blank","_blank");
+
+  if(!win){
+   URL.revokeObjectURL(blobURL);
+   alert("Allow pop-ups to play uploaded games.");
+   return;
+  }
+
+  win.document.title=game.name;
+
+  const frame=win.document.createElement("iframe");
+  frame.src=blobURL;
+  frame.sandbox="allow-scripts allow-forms";
+  frame.style="width:100%;height:100%;border:0;position:fixed;inset:0";
+  win.document.body.style="margin:0";
+  win.document.body.appendChild(frame);
+
+  win.addEventListener("pagehide",()=>URL.revokeObjectURL(blobURL),{once:true});
+ }catch(error){
+  alert("Could not open this game.");
+ }
+}
+
+async function deleteUploaded(id){
+ if(!confirm("Delete this uploaded game?"))return;
+
+ await openDatabase();
+ const transaction=db.transaction("games","readwrite");
+ transaction.objectStore("games").delete(id);
+ transaction.oncomplete=renderGames;
+}
+
+function addAdminGame(){
+ const name=$("adminName").value.trim();
+ const url=$("adminURL").value.trim();
+
+ if(!name || !url){
+  alert("Enter game name and URL.");
+  return;
+ }
+ if(!validURL(url)){
+  alert("Enter a valid HTTP or HTTPS URL.");
+  return;
+ }
+
+ adminGames.push({name,url});
+ localStorage.setItem("adminGames",JSON.stringify(adminGames));
+
+ $("adminName").value="";
+ $("adminURL").value="";
+ renderAdmin();
+ alert("Admin game added!");
+}
+
+function renderAdmin(){
+ const list=$("adminList");
+ list.innerHTML="";
+
+ adminGames.forEach((game,index)=>{
+  const item=document.createElement("div");
+  item.className="game";
+  item.style.margin="8px 0";
+
+  const name=document.createElement("strong");
+  name.textContent=game.name;
+
+  const del=document.createElement("button");
+  del.className="danger";
+  del.textContent="Delete";
+  del.onclick=()=>{
+   adminGames.splice(index,1);
+   localStorage.setItem("adminGames",JSON.stringify(adminGames));
+   renderAdmin();
+  };
+
+  item.append(name,del);
+  list.appendChild(item);
+ });
+}
+
+goHome();
 </script>
 
 </body>
