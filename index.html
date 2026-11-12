@@ -121,7 +121,7 @@ hr{border:0;border-top:1px solid #ffffff25;margin:22px 0}
 </main>
 
 <button id="adminButton" onclick="adminLogin()">Admin</button>
-<footer>Gencel Gamer Free</footer>
+<footer>Gencel Gamer Free<div id="gameCount" class="small">Loading game count...</div></footer>
 
 <script>
 const AI_URL="https://gencel-ai.vercel.app";
@@ -141,7 +141,9 @@ const defaultGames=[
  {name:"Number Merge",url:"https://gencelgames.github.io/Number-Merge/"},
  {name:"Snake",url:"https://gencelgames.github.io/Snake/"},
  {name:"Brick Bounce",url:"https://gencelgames.github.io/Brick-bounce/"},
- {name:"Echo Pads",url:"https://gencelgames.github.io/Echo-Pads/"}
+ {name:"Echo Pads",url:"https://gencelgames.github.io/Echo-Pads/"},
+ {name:"Lantern Drift",url:"https://gencelgames.github.io/Lantern-Drift/"},
+ {name:"Tower Stack",url:"https://gencelgames.github.io/Tower-Stack/"}
 ];
 
 let adminGames=JSON.parse(localStorage.getItem("adminGames")||"[]");
@@ -244,7 +246,19 @@ async function getUploadedGames(){
  });
 }
 
+async function refreshGameCount(){
+ const counter=$("gameCount");
+ if(!counter)return;
+ try{
+  const uploaded=await getUploadedGames();
+  counter.textContent="🎮 Total Games: "+(defaultGames.length+adminGames.length+uploaded.length);
+ }catch(e){
+  counter.textContent="🎮 Total Games: "+(defaultGames.length+adminGames.length);
+ }
+}
+
 async function renderGames(){
+ refreshGameCount();
  const list=$("gameList");
  list.innerHTML="";
 
@@ -361,6 +375,7 @@ async function renderAdmin(){
 }
 
 goHome();
+refreshGameCount();
 </script>
 </body>
 </html>
