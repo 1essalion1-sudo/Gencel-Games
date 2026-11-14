@@ -100,17 +100,25 @@ hr{border:0;border-top:1px solid #ffffff25;margin:22px 0}
  <button onclick="goHome()">← Home</button>
  <div class="panel">
   <h2>🕹️ Games Library</h2>
-  <div class="community-box">
-   <h3>🌐 Community Mode</h3>
-   <p class="small">Add a GitHub Pages game to your personal library using its page URL.</p>
-   <div class="community-add">
-    <input id="communityURL" type="url" placeholder="Paste GitHub Pages game URL" aria-label="GitHub Pages game URL">
-    <button type="button" onclick="addCommunityGame()">＋ Add</button>
-   </div>
-   <p class="small">The game name is detected automatically from the URL.</p>
-   <div id="communityMessage" class="small" role="status"></div>
-  </div>
+  <button type="button" onclick="showCommunity()">🌐 Community Mode</button>
+  <p class="small">Browse the games available in Gencel Gamer Free.</p>
   <div id="gameList" class="game-list"></div>
+ </div>
+</section>
+
+<section id="communityPage" class="hidden">
+ <button onclick="showGames()">← Games Library</button>
+ <div class="panel">
+  <h2>🌐 Community Mode</h2>
+  <p class="small">Add GitHub Pages games to your personal library. The game name is detected from its URL.</p>
+  <div class="community-add">
+   <input id="communityURL" type="url" placeholder="Paste GitHub Pages game URL" aria-label="GitHub Pages game URL">
+   <button type="button" onclick="addCommunityGame()">＋ Add</button>
+  </div>
+  <div id="communityMessage" class="small" role="status"></div>
+  <hr>
+  <h3>My Community Games</h3>
+  <div id="communityGameList" class="game-list"></div>
  </div>
 </section>
 
@@ -186,7 +194,7 @@ const $=id=>document.getElementById(id);
 
 function openAI(){window.open(AI_URL,"_blank")}
 function hidePages(){
- ["homePage","gamesPage","adminPage"].forEach(id=>$(id).classList.add("hidden"));
+ ["homePage","gamesPage","communityPage","adminPage"].forEach(id=>$(id).classList.add("hidden"));
 }
 function goHome(){
  hidePages();
@@ -196,6 +204,11 @@ function showGames(){
  hidePages();
  $("gamesPage").classList.remove("hidden");
  renderGames();
+}
+function showCommunity(){
+ hidePages();
+ $("communityPage").classList.remove("hidden");
+ renderCommunityGames();
 }
 function adminLogin(){
  const password=prompt("Enter Admin Password:");
@@ -255,7 +268,8 @@ function addCommunityGame(){
  localStorage.setItem("communityGames",JSON.stringify(communityGames));
  input.value="";
  message.textContent="Added "+name+" to your library!";
- renderGames();
+ input.value="";
+ renderCommunityGames();
  refreshGameCount();
 }
 
@@ -362,10 +376,6 @@ async function renderGames(){
   addCard(game.name,"🕹️",()=>window.open(game.url,"_blank","noopener"));
  });
 
- communityGames.forEach(game=>{
-  addCard(game.name,"🌐",()=>window.open(game.url,"_blank","noopener"));
- });
-
  try{
   const uploaded=await getUploadedGames();
   uploaded.forEach(game=>{
@@ -374,6 +384,45 @@ async function renderGames(){
  }catch(e){
   console.error(e);
  }
+}
+
+function removeCommunityGame(index){
+ if(!confirm("Remove this game from your Community Library?"))return;
+ communityGames.splice(index,1);
+ localStorage.setItem("communityGames",JSON.stringify(communityGames));
+ renderCommunityGames();
+ refreshGameCount();
+}
+
+function renderCommunityGames(){
+ const list=$("communityGameList");
+ if(!list)return;
+ list.innerHTML="";
+ if(!communityGames.length){
+  const empty=document.createElement("p");
+  empty.className="small";
+  empty.textContent="No community games added yet. Paste a GitHub Pages URL above to get started.";
+  list.appendChild(empty);
+  return;
+ }
+ communityGames.forEach((game,index)=>{
+  const card=document.createElement("div");
+  card.className="game";
+  const title=document.createElement("h3");
+  title.textContent="🌐 "+game.name;
+  const actions=document.createElement("div");
+  actions.className="game-actions";
+  const play=document.createElement("button");
+  play.textContent="Play";
+  play.onclick=()=>window.open(game.url,"_blank","noopener");
+  const remove=document.createElement("button");
+  remove.className="danger";
+  remove.textContent="Remove";
+  remove.onclick=()=>removeCommunityGame(index);
+  actions.append(play,remove);
+  card.append(title,actions);
+  list.appendChild(card);
+ });
 }
 
 async function playUploaded(id){
